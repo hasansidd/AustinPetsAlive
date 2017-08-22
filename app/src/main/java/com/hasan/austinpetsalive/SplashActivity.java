@@ -22,6 +22,9 @@ public class SplashActivity extends AppCompatActivity {
     static ArrayList<String> catURLsArray = new ArrayList<>();
     DownloadCatAdoptionInfo downloadCatInfoTask;
 
+    static ArrayList<String> animalNamesArray = new ArrayList<>();
+    static ArrayList<String> animalURLsArray = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

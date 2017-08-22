@@ -20,6 +20,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void tabbedActivityClick (View view) {
+        Intent intent = new Intent(getApplicationContext(), TabbedActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
