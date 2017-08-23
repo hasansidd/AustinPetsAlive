@@ -61,7 +61,7 @@ public class AdoptionActivity extends AppCompatActivity {
         animal = intent.getStringExtra("animal");
 
 
-        switch (animal) {
+/*        switch (animal) {
             case "dog":
                 animalNamesArray = SplashActivity.dogNamesArray;
                 animalURLsArray = SplashActivity.dogURLsArray;
@@ -72,7 +72,7 @@ public class AdoptionActivity extends AppCompatActivity {
                 break;
             default:
                 Log.e("No animal parameter","0");
-        }
+        }*/
 
         animalNameTextView.setText(animalNamesArray.get(imageCounter));
         imageDownloader = new ImageDownloader();
