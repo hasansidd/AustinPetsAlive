@@ -16,33 +16,11 @@ import com.squareup.picasso.Picasso;
 
 
 public class DogAdoptionFragment extends Fragment {
-    int clickCounter = 0;
-
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private TextView dogNameTextView;
-    private ImageView dogImageView;
-    private TextView dogEnergyLevelTextView;
-    private TextView dogChildLevelTextView;
-    private TextView dogCatLevelTextView;
-    private TextView dogDogLevelTextView;
-    private TextView dogHomeAloneTextView;
 
     public DogAdoptionFragment() {
     }
 
-    public void setInfo (int Index) {
-        Log.i("click counter", Integer.toString(clickCounter));
-        if (clickCounter == SplashActivity.dogInfo.size() - 1) {
-            clickCounter = 0;
-        }
-        Picasso.with(this.getContext()).load(SplashActivity.dogInfo.get(clickCounter).getURL().get(0)).into(dogImageView);
-        dogNameTextView.setText(SplashActivity.dogInfo.get(clickCounter).getName());
-        dogEnergyLevelTextView.setText("Energy Level: " + SplashActivity.dogInfo.get(clickCounter).getEnergyLevel());
-        dogChildLevelTextView.setText("Child Level: " + SplashActivity.dogInfo.get(clickCounter).getChildLevel());
-        dogCatLevelTextView.setText("Cat Level: " + SplashActivity.dogInfo.get(clickCounter).getCatLevel());
-        dogDogLevelTextView.setText("Dog Level: " + SplashActivity.dogInfo.get(clickCounter).getDogLevel());
-        dogHomeAloneTextView.setText("Home Alone Level: " + SplashActivity.dogInfo.get(clickCounter).getHomeAlone());
-    }
 
     public static DogAdoptionFragment newInstance(int sectionNumber) {
         DogAdoptionFragment fragment = new DogAdoptionFragment();
@@ -56,33 +34,26 @@ public class DogAdoptionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_tabbed, container, false);
+        View rootView = inflater.inflate(R.layout.recyclerview, container, false);
 
-        dogImageView = (ImageView) rootView.findViewById(R.id.Image);
-        dogNameTextView = (TextView) rootView.findViewById(R.id.NameTextView);
-        dogEnergyLevelTextView = (TextView) rootView.findViewById(R.id.energyLevel);
-        dogChildLevelTextView = (TextView) rootView.findViewById(R.id.childLevel);
-        dogCatLevelTextView = (TextView) rootView.findViewById(R.id.catLevel);
-        dogDogLevelTextView = (TextView) rootView.findViewById(R.id.dogLevel);
-        dogHomeAloneTextView = (TextView) rootView.findViewById(R.id.homeAlone);
+        RecyclerView rv = (RecyclerView)rootView.findViewById(R.id.recyclerView);
+        rv.setHasFixedSize(true);
+        Log.i("test","1");
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        Log.i("test","2");
+        rv.setLayoutManager(llm);
+        Log.i("test","3");
 
-        setInfo(clickCounter);
+        RVAdapter adapter = new RVAdapter(SplashActivity.dogInfo);
+        Log.i("test","4");
+        rv.setAdapter(adapter);
+        Log.i("test","5");
+
         return rootView;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        dogImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickCounter++;
-                try {
-                    setInfo(clickCounter);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 }

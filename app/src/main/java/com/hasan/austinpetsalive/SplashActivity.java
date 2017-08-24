@@ -11,9 +11,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 public class SplashActivity extends AppCompatActivity {
     static ArrayList<Dog> dogInfo = new ArrayList<>();
@@ -47,11 +45,11 @@ public class SplashActivity extends AppCompatActivity {
         downloadDogInfoTask = new DownloadDogAdoptionInfo();
         downloadDogInfoTask.execute("https://www.austinpetsalive.org/adopt/dogs/");
 
-        DownloadDogIDInfo task = new DownloadDogIDInfo();
-        task.execute(24);
+        //DownloadDogIDInfo task = new DownloadDogIDInfo();
+       //task.execute(24);
 
-        // downloadCatInfoTask = new DownloadCatAdoptionInfo();
-        // downloadCatInfoTask.execute("https://www.austinpetsalive.org/adopt/cats/");
+        downloadCatInfoTask = new DownloadCatAdoptionInfo();
+        downloadCatInfoTask.execute("https://www.austinpetsalive.org/adopt/cats/");
     }
 
     public class DownloadDogAdoptionInfo extends AsyncTask<String, Void, Void> {
@@ -100,7 +98,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 //check to see if all arrays match, -5 to avoid <h3> elements such as i.e. sign up for updates, find us on facebook
                 if ((dogNames.size() - 5) == dogURLs.size() && dogURLs.size() == dogStats.size()) {
-                    Log.i("All sizes match", String.valueOf(dogNames.size()));
+                    Log.i("All sizes match", String.valueOf(dogNames.size()-5));
                 } else {
                     Log.i("Mismatch in sizes", "0");
                     Log.i("Dog Names", String.valueOf(dogNames.size()));
@@ -154,7 +152,7 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
-        public class DownloadCatAdoptionInfo extends AsyncTask<String, Void, ArrayList<String>> {
+    public class DownloadCatAdoptionInfo extends AsyncTask<String, Void, ArrayList<String>> {
 
         @Override
         protected ArrayList<String> doInBackground(String... urls) {
