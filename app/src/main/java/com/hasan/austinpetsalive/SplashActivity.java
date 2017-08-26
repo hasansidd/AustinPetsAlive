@@ -53,12 +53,6 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // downloadDogInfoTask = new DownloadDogAdoptionInfo();
-        //downloadDogInfoTask.execute("https://www.austinpetsalive.org/adopt/dogs/");
-
-        // DownloadDogIDInfo task = new DownloadDogIDInfo();
-        // task.execute(24);
-
         DownloadJSONData task = new DownloadJSONData();
         try {
             JSONurl = task.execute("https://raw.githubusercontent.com/hasansidd/petScraper/master/petScaperJSON.txt").get();
