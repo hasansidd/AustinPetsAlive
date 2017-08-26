@@ -40,9 +40,9 @@ public class CatAdoptionFragment extends Fragment {
         catNameTextView = (TextView) rootView.findViewById(R.id.NameTextView);
         catImageView = (ImageView) rootView.findViewById(R.id.Image);
 
-        catNameTextView.setText(SplashActivity.catNamesArray.get(0));
-        Picasso.with(this.getContext()).load(SplashActivity.catURLsArray.get(0)).into(catImageView);
-        clickCounter=438;
+//        catNameTextView.setText(SplashActivity.catNamesArray.get(0));
+ //       Picasso.with(this.getContext()).load(SplashActivity.catURLsArray.get(0)).into(catImageView);
+        clickCounter=0;
         return rootView;
     }
 

@@ -32,8 +32,7 @@ public class DogAdoptionFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.recyclerview, container, false);
 
         RecyclerView rv = (RecyclerView)rootView.findViewById(R.id.recyclerView);
@@ -44,7 +43,7 @@ public class DogAdoptionFragment extends Fragment {
         rv.setLayoutManager(llm);
         Log.i("test","3");
 
-        RVAdapter adapter = new RVAdapter(SplashActivity.dogInfo);
+        RVAdapter adapter = new RVAdapter(SplashActivity.dogInfo,getContext());
         Log.i("test","4");
         rv.setAdapter(adapter);
         Log.i("test","5");

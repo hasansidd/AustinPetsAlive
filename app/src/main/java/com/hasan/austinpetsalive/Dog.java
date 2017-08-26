@@ -17,6 +17,7 @@ public class Dog {
     String DOB;
     String age;
     String location;
+    String description;
 
     public String getDescription() {
         return description;
@@ -25,8 +26,6 @@ public class Dog {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    String description;
 
     public String getBreed() {
         return breed;
@@ -84,9 +83,6 @@ public class Dog {
     public void setID(String ID) {
         this.ID = ID;
     }
-    /*    public Dog(){
-
-    }*/
 
     public String getName() {
         return name;

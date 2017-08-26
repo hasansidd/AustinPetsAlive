@@ -77,9 +77,9 @@ public class TabbedActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Dogs";
+                    return "Available Dogs";
                 case 1:
-                    return "Cats";
+                    return "Available Cats";
             }
             return null;
         }

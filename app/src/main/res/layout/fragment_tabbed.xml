@@ -32,7 +32,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="7"
                 android:cropToPadding="false"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:src="@mipmap/ic_launcher" />
 
             <TextView
@@ -55,7 +55,8 @@
                 android:layout_weight="1"
                 android:gravity="left|center"
                 android:text="Energy Level"
-                android:textAppearance="@style/InfoFont" />
+                android:textAppearance="@style/InfoFont"
+                android:padding="5dp"/>
 
             <TextView
                 android:id="@+id/childLevel"
@@ -65,7 +66,8 @@
                 android:layout_weight="1"
                 android:gravity="left|center"
                 android:text="Child Level"
-                android:textAppearance="@style/InfoFont" />
+                android:textAppearance="@style/InfoFont"
+                android:padding="5dp"/>
 
             <TextView
                 android:id="@+id/dogLevel"
@@ -75,7 +77,8 @@
                 android:layout_weight="1"
                 android:gravity="left|center"
                 android:text="Dog Level"
-                android:textAppearance="@style/InfoFont" />
+                android:textAppearance="@style/InfoFont"
+                android:padding="5dp"/>
 
             <TextView
                 android:id="@+id/catLevel"
@@ -85,7 +88,8 @@
                 android:layout_weight="1"
                 android:gravity="left|center"
                 android:text="Cat Level"
-                android:textAppearance="@style/InfoFont" />
+                android:textAppearance="@style/InfoFont"
+                android:padding="5dp"/>
 
             <TextView
                 android:id="@+id/homeAlone"
@@ -95,7 +99,9 @@
                 android:layout_weight="1"
                 android:gravity="left|center"
                 android:text="Home Alone Level"
-                android:textAppearance="@style/InfoFont" />
+                android:textAppearance="@style/InfoFont"
+                android:padding="5dp"
+                android:textStyle="normal"/>
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
