@@ -37,16 +37,11 @@ public class DogAdoptionFragment extends Fragment {
 
         RecyclerView rv = (RecyclerView)rootView.findViewById(R.id.recyclerView);
         rv.setHasFixedSize(true);
-        Log.i("test","1");
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        Log.i("test","2");
         rv.setLayoutManager(llm);
-        Log.i("test","3");
 
         RVAdapter adapter = new RVAdapter(SplashActivity.dogInfo,getContext());
-        Log.i("test","4");
         rv.setAdapter(adapter);
-        Log.i("test","5");
 
         return rootView;
     }

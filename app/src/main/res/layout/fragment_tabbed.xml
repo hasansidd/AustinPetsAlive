@@ -25,15 +25,33 @@
             android:layout_gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/Image"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:layout_gravity="center"
-                android:layout_weight="7"
-                android:cropToPadding="false"
-                android:scaleType="fitXY"
-                android:src="@mipmap/ic_launcher" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="7">
+
+                <ImageView
+                    android:id="@+id/Image"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:layout_centerInParent="true"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="7"
+                    android:cropToPadding="false"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/imageCounter"
+                    android:layout_alignParentRight="true"
+                    android:background="#ffffff"
+                    android:textColor="#000000"
+                    android:alpha=".25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:text="0/0" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/NameTextView"
@@ -48,60 +66,61 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/energyLevel"
+                android:id="@+id/sexTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/Image"
                 android:layout_weight="1"
                 android:gravity="left|center"
-                android:text="Energy Level"
+                android:text="Sex: "
                 android:textAppearance="@style/InfoFont"
                 android:padding="5dp"/>
 
             <TextView
-                android:id="@+id/childLevel"
+                android:id="@+id/breedTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/Image"
                 android:layout_weight="1"
                 android:gravity="left|center"
-                android:text="Child Level"
+                android:text="Breed: "
                 android:textAppearance="@style/InfoFont"
                 android:padding="5dp"/>
 
             <TextView
-                android:id="@+id/dogLevel"
+                android:id="@+id/weightTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/Image"
                 android:layout_weight="1"
                 android:gravity="left|center"
-                android:text="Dog Level"
+                android:text="Weight: "
                 android:textAppearance="@style/InfoFont"
                 android:padding="5dp"/>
 
             <TextView
-                android:id="@+id/catLevel"
+                android:id="@+id/ageTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/Image"
                 android:layout_weight="1"
                 android:gravity="left|center"
-                android:text="Cat Level"
+                android:text="Age: "
                 android:textAppearance="@style/InfoFont"
                 android:padding="5dp"/>
 
             <TextView
-                android:id="@+id/homeAlone"
+                android:id="@+id/descriptionTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/Image"
                 android:layout_weight="1"
                 android:gravity="left|center"
-                android:text="Home Alone Level"
+                android:text="Description"
                 android:textAppearance="@style/InfoFont"
                 android:padding="5dp"
                 android:textStyle="normal"/>
+
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

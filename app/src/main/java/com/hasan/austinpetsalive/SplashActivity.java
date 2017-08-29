@@ -10,14 +10,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hasan.austinpetsalive.model.Cat;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -27,12 +23,8 @@ public class SplashActivity extends AppCompatActivity {
     static ArrayList<Dog> dogInfo = new ArrayList<>();
     static ArrayList<Cat> catInfo = new ArrayList<>();
 
-    static ArrayList<String> catNamesArray = new ArrayList<>();
-    static ArrayList<String> catURLsArray = new ArrayList<>();
-    DownloadCatAdoptionInfo downloadCatInfoTask;
-
     String dogJSON;
-    String catJson;
+    String catJSON;
     OkHttpClient client = new OkHttpClient();
 
     public void printDogInfo(int index) {
@@ -52,25 +44,35 @@ public class SplashActivity extends AppCompatActivity {
         Log.i("Home Alone", dogInfo.get(index).getHomeAlone());
     }
 
+    public void printCatInfo(int index) {
+        Log.i("Name", catInfo.get(index).getName());
+        Log.i("Sex", catInfo.get(index).getSex());
+        Log.i("Breed", catInfo.get(index).getBreed());
+        Log.i("Weight", catInfo.get(index).getWeight());
+        Log.i("DOB", catInfo.get(index).getDOB());
+        Log.i("Age", catInfo.get(index).getAge());
+        Log.i("Location", catInfo.get(index).getLocation());
+        Log.i("ID", catInfo.get(index).getID());
+        Log.i("URL", catInfo.get(index).getURL().toString());
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DownloadJSONData task = new DownloadJSONData();
+        DownloadDogJSONData dogTask = new DownloadDogJSONData();
+
         try {
-            dogJSON = task.execute("https://raw.githubusercontent.com/hasansidd/petScraper/master/petScaperJSON.txt").get();
+            dogJSON = dogTask.execute("https://raw.githubusercontent.com/hasansidd/petScraper/master/dogScaperJSON.txt").get();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-        downloadCatInfoTask = new DownloadCatAdoptionInfo();
-        downloadCatInfoTask.execute("https://www.austinpetsalive.org/adopt/cats/");
-
     }
 
 
-    public class DownloadJSONData extends AsyncTask<String,Void,String> {
+    public class DownloadDogJSONData extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... url) {
@@ -93,84 +95,52 @@ public class SplashActivity extends AppCompatActivity {
             super.onPostExecute(s);
 
             Gson gson = new Gson();
-            dogInfo = gson.fromJson(dogJSON, new TypeToken<ArrayList<Dog>>() {}.getType());
+            dogInfo = gson.fromJson(dogJSON, new TypeToken<ArrayList<Dog>>() {
+            }.getType());
 
-            gson = new Gson();
-            dogInfo = gson.fromJson(catJson, new TypeToken<ArrayList<Cat>>() {}.getType());
-
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
-
-
-    public class DownloadCatAdoptionInfo extends AsyncTask<String, Void, ArrayList<String>> {
-
-        @Override
-        protected ArrayList<String> doInBackground(String... urls) {
+            DownloadCatJSONData catTask = new DownloadCatJSONData();
             try {
-                Document doc = Jsoup.connect(urls[0]).get();
-                Elements catNames = doc.select("h3");
-                Elements catURLs = doc.select("img[class=photo]");
-                Elements catID =doc.select("a[rel=bookmark]");
-
-                for (Element e : catURLs) {
-                    Cat cat = new Cat();
-                    cat.addURL(e.attr("src"));
-                    catInfo.add(cat);
-                }
-
-                for (int i = 0; i < catInfo.size(); i++) {
-                    catInfo.get(i).setName(catNames.get(i).text());
-                }
-
-                Log.i("catinfosize", String.valueOf(catInfo.size()));
-                for (int i = 0; i < catInfo.size(); i++) {
-                    catInfo.get(i).setIDURL("https://www.austinpetsalive.org" + catID.get(i).attr("href"));
-                }
-
-                return catNamesArray;
+                catJSON = catTask.execute("https://raw.githubusercontent.com/hasansidd/petScraper/master/catScaperJSON.txt").get();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return null;
+        }
+    }
+
+
+    public class DownloadCatJSONData extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... url) {
+            Request request = new Request.Builder()
+                    .url(url[0])
+                    .build();
+
+            Response response = null;
+            try {
+                response = client.newCall(request).execute();
+                return response.body().string();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
         }
 
         @Override
-        protected void onPostExecute(ArrayList<String> strings) {
-            super.onPostExecute(strings);
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            Gson gson = new Gson();
+            catInfo = gson.fromJson(catJSON, new TypeToken<ArrayList<Cat>>() {
+            }.getType());
+
+            printCatInfo(1);
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
+
         }
     }
 
-    public static void getIDinfo(Integer... i) {
-        //Details about each animal
-        try {
-            String URL = catInfo.get(i[0]).getIDURL();
-            Document docID = Jsoup.connect(URL).get();
-            Elements catIDStats = docID.select("td");
-            Elements catDescription = docID.select("span[id=lbDescription]");
-            Elements catExtraUrls = docID.select("img[id=Photo1]");
-
-            catInfo.get(i[0]).setSex(catIDStats.get(1).text());
-            catInfo.get(i[0]).setBreed(catIDStats.get(2).text());
-            catInfo.get(i[0]).setWeight(catIDStats.get(3).text());
-            catInfo.get(i[0]).setDOB(catIDStats.get(4).text());
-            catInfo.get(i[0]).setAge(catIDStats.get(5).text());
-            catInfo.get(i[0]).setLocation(catIDStats.get(6).text());
-
-            catInfo.get(i[0]).setDescription(catDescription.text());
-
-            for (int k = 0; k < catExtraUrls.size(); k++) {
-                catInfo.get(i[0]).URL.add(catExtraUrls.get(k).attr("src"));
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
 

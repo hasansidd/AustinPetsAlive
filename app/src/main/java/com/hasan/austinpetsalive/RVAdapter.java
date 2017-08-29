@@ -19,17 +19,18 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DogViewHolder> {
-
+    int clickCounter=1;
     public class DogViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView dogNameTextView;
         ImageView dogImageView;
-        TextView dogEnergyLevelTextView;
-        TextView dogChildLevelTextView;
-        TextView dogCatLevelTextView;
-        TextView dogDogLevelTextView;
-        TextView dogHomeAloneTextView;
+        TextView dogImageCounter;
+        TextView dogSexTextView;
+        TextView dogBreedTextView;
+        TextView dogWeightTextView;
+        TextView dogAgeTextView;
+        TextView dogDescriptionTextView;
         CardView cardView;
-        int clickCounter=1;
+
 
         @Override
         public void onClick(View v) {
@@ -43,6 +44,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DogViewHolder> {
             Log.i("clickcounter2",String.valueOf(clickCounter)+"/"+(dogInfo.get(getAdapterPosition()).getURL().size()-1));
 
             Log.i("Index position is: ", String.valueOf(getAdapterPosition()));
+            dogImageCounter.setText(clickCounter + "/" + (dogInfo.get(getAdapterPosition()).URL.size()-1));
             Picasso.with(v.getContext()).load(dogInfo.get(getAdapterPosition()).getURL().get(clickCounter)).into(dogImageView);
         }
 
@@ -50,12 +52,13 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DogViewHolder> {
             super(itemView);
             Log.i("test", "8");
             dogImageView = (ImageView) itemView.findViewById(R.id.Image);
+            dogImageCounter = (TextView) itemView.findViewById(R.id.imageCounter);
             dogNameTextView = (TextView) itemView.findViewById(R.id.NameTextView);
-            dogEnergyLevelTextView = (TextView) itemView.findViewById(R.id.energyLevel);
-            dogChildLevelTextView = (TextView) itemView.findViewById(R.id.childLevel);
-            dogCatLevelTextView = (TextView) itemView.findViewById(R.id.catLevel);
-            dogDogLevelTextView = (TextView) itemView.findViewById(R.id.dogLevel);
-            dogHomeAloneTextView = (TextView) itemView.findViewById(R.id.homeAlone);
+            dogSexTextView = (TextView) itemView.findViewById(R.id.sexTextView);
+            dogBreedTextView = (TextView) itemView.findViewById(R.id.breedTextView);
+            dogWeightTextView = (TextView) itemView.findViewById(R.id.weightTextView);
+            dogAgeTextView = (TextView) itemView.findViewById(R.id.ageTextView);
+            dogDescriptionTextView = (TextView) itemView.findViewById(R.id.descriptionTextView);
             cardView = (CardView) itemView.findViewById(R.id.cardView);
             Log.i("test", "9");
 
@@ -82,14 +85,15 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DogViewHolder> {
 
     @Override
     public void onBindViewHolder(DogViewHolder dogViewHolder, final int position) {
+        clickCounter=1;
         Picasso.with(dogViewHolder.cardView.getContext()).load(dogInfo.get(position).getURL().get(0)).into(dogViewHolder.dogImageView);
+        dogViewHolder.dogImageCounter.setText(clickCounter + "/" + (dogInfo.get(position).URL.size()-1));
         dogViewHolder.dogNameTextView.setText(dogInfo.get(position).getName());
-        dogViewHolder.dogChildLevelTextView.setText("Sex: " + dogInfo.get(position).getSex());
-        dogViewHolder.dogEnergyLevelTextView.setText("Breed: " + dogInfo.get(position).getBreed());
-
-        dogViewHolder.dogCatLevelTextView.setText("Weight: " + dogInfo.get(position).getWeight());
-        dogViewHolder.dogDogLevelTextView.setText("Age: " + dogInfo.get(position).getAge());
-        dogViewHolder.dogHomeAloneTextView.setText(dogInfo.get(position).getDescription());
+        dogViewHolder.dogSexTextView.setText("Sex: " + dogInfo.get(position).getSex());
+        dogViewHolder.dogBreedTextView.setText("Breed: " + dogInfo.get(position).getBreed());
+        dogViewHolder.dogWeightTextView.setText("Weight: " + dogInfo.get(position).getWeight());
+        dogViewHolder.dogAgeTextView.setText("Age: " + dogInfo.get(position).getAge());
+        dogViewHolder.dogDescriptionTextView.setText(dogInfo.get(position).getDescription());
     }
 
     @Override

@@ -16,10 +16,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 public class CatAdoptionFragment extends Fragment {
-    int clickCounter = 0;
-
-    private TextView catNameTextView;
-    private ImageView catImageView;
+    private static final String ARG_SECTION_NUMBER = "section_number";
 
     public CatAdoptionFragment() {
     }
@@ -27,6 +24,7 @@ public class CatAdoptionFragment extends Fragment {
     public static CatAdoptionFragment newInstance(int sectionNumber) {
         CatAdoptionFragment fragment = new CatAdoptionFragment();
         Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         Log.i("section number", Integer.toString(sectionNumber));
         return fragment;
@@ -35,36 +33,21 @@ public class CatAdoptionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_tabbed, container, false);
+        View rootView = inflater.inflate(R.layout.recyclerview, container, false);
 
-        catNameTextView = (TextView) rootView.findViewById(R.id.NameTextView);
-        catImageView = (ImageView) rootView.findViewById(R.id.Image);
+        RecyclerView rvCat = (RecyclerView)rootView.findViewById(R.id.recyclerView);
+        rvCat.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        rvCat.setLayoutManager(llm);
 
-//        catNameTextView.setText(SplashActivity.catNamesArray.get(0));
- //       Picasso.with(this.getContext()).load(SplashActivity.catURLsArray.get(0)).into(catImageView);
-        clickCounter=0;
+        CatRVAdapter adapter = new CatRVAdapter(SplashActivity.catInfo,getContext());
+        rvCat.setAdapter(adapter);
+
         return rootView;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        catImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickCounter++;
-                Log.i("click counter after", Integer.toString(clickCounter));
-                if (clickCounter == SplashActivity.catNamesArray.size() - 1) {
-                    clickCounter = 0;
-                }
-                try {
-                    Log.i("image counter", "inside");
-                    Picasso.with(getActivity()).load(SplashActivity.catURLsArray.get(clickCounter)).into(catImageView);
-                    catNameTextView.setText(SplashActivity.catNamesArray.get(clickCounter));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 }
