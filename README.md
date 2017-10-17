@@ -1,4 +1,4 @@
-# AustinPetsAlive 
+# AustinPetsAlive <img src="https://github.com/hasansidd/AustinPetsAlive/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher2.png?raw=true" height="100">
 
 An Android app that list available pets for adoption from Austin Pets Alive.
 
