@@ -1,13 +1,10 @@
 package com.hasan.austinpetsalive;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,19 +18,9 @@ import java.util.List;
 
 
 public class DogAdoptionFragment extends Fragment {
-    private static final String ARG_SECTION_NUMBER = "section_number";
 
-    public DogAdoptionFragment() {
-    }
-
-
-    public static DogAdoptionFragment newInstance(int sectionNumber) {
-        DogAdoptionFragment fragment = new DogAdoptionFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
-        Log.i("section number", Integer.toString(sectionNumber));
-        return fragment;
+    public static DogAdoptionFragment newInstance() {
+        return new DogAdoptionFragment();
     }
 
     @Override
@@ -45,7 +32,7 @@ public class DogAdoptionFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
 
-        DogAdapter adapter = new DogAdapter(SplashActivity.dogInfo,getContext());
+        DogAdapter adapter = new DogAdapter(SplashActivity.dogInfo);
         rv.setAdapter(adapter);
 
         return rootView;
@@ -56,7 +43,7 @@ public class DogAdoptionFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    public class DogViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class DogViewHolder extends RecyclerView.ViewHolder{
         TextView dogNameTextView;
         ImageView dogImageView;
         TextView dogImageCounter;
@@ -65,20 +52,8 @@ public class DogAdoptionFragment extends Fragment {
         TextView dogWeightTextView;
         TextView dogAgeTextView;
         TextView dogDescriptionTextView;
-        CardView cardView;
         Dog mDog;
         int clickCounter=1;
-
-        @Override
-        public void onClick(View v) {
-            clickCounter++;
-
-            if (mDog.getURL().size()-1 < clickCounter) {
-                clickCounter=1;
-            }
-            dogImageCounter.setText(clickCounter + "/" + (mDog.getURL().size()-1));
-            Picasso.with(v.getContext()).load(mDog.getURL().get(clickCounter)).into(dogImageView);
-        }
 
         public DogViewHolder(View itemView) {
             super(itemView);
@@ -90,16 +65,27 @@ public class DogAdoptionFragment extends Fragment {
             dogWeightTextView = (TextView) itemView.findViewById(R.id.weightTextView);
             dogAgeTextView = (TextView) itemView.findViewById(R.id.ageTextView);
             dogDescriptionTextView = (TextView) itemView.findViewById(R.id.descriptionTextView);
-            cardView = (CardView) itemView.findViewById(R.id.cardView);
-
-            itemView.setOnClickListener(this);
         }
 
         public void bind (Dog dog) {
             mDog = dog;
             clickCounter=1;
-            Picasso.with(cardView.getContext()).load(mDog.getURL().get(0)).into(dogImageView);
+
+            Picasso.with(getContext()).load(mDog.getURL().get(0)).into(dogImageView);
             dogImageCounter.setText(clickCounter + "/" + (mDog.getURL().size()-1));
+            dogImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickCounter++;
+
+                    if (mDog.getURL().size()-1 < clickCounter) {
+                        clickCounter=1;
+                    }
+                    dogImageCounter.setText(clickCounter + "/" + (mDog.getURL().size()-1));
+                    Picasso.with(v.getContext()).load(mDog.getURL().get(clickCounter)).into(dogImageView);
+                }
+            });
+
             dogNameTextView.setText(mDog.getName());
             dogSexTextView.setText("Sex: " + mDog.getSex());
             dogBreedTextView.setText("Breed: " + mDog.getBreed());
@@ -112,15 +98,14 @@ public class DogAdoptionFragment extends Fragment {
     public class DogAdapter extends RecyclerView.Adapter<DogViewHolder> {
         List<Dog> dogInfo;
 
-        DogAdapter(List<Dog> dogInfo, Context context) {
+        DogAdapter(List<Dog> dogInfo) {
             this.dogInfo = dogInfo;
         }
 
         @Override
         public DogViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
             View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_tabbed, viewGroup, false);
-            DogViewHolder dvh = new DogViewHolder(v);
-            return dvh;
+            return new DogViewHolder(v);
         }
 
         @Override
@@ -131,7 +116,6 @@ public class DogAdoptionFragment extends Fragment {
         @Override
         public int getItemCount() {
             return dogInfo.size();
-
         }
     }
 }

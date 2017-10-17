@@ -2,12 +2,9 @@ package com.hasan.austinpetsalive;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,17 +17,9 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class CatAdoptionFragment extends Fragment {
-    private static final String ARG_SECTION_NUMBER = "section_number";
 
-    public CatAdoptionFragment() {
-    }
-
-    public static CatAdoptionFragment newInstance(int sectionNumber) {
-        CatAdoptionFragment fragment = new CatAdoptionFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
-        return fragment;
+    public static CatAdoptionFragment newInstance() {
+        return new CatAdoptionFragment();
     }
 
     @Override
@@ -49,12 +38,7 @@ public class CatAdoptionFragment extends Fragment {
         return rootView;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    public class CatViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class CatViewHolder extends RecyclerView.ViewHolder{
         TextView catNameTextView;
         ImageView catImageView;
         TextView catImageCounter;
@@ -63,21 +47,8 @@ public class CatAdoptionFragment extends Fragment {
         TextView catWeightTextView;
         TextView catAgeTextView;
         TextView catDescriptionTextView;
-        CardView cardView;
         int clickCounter=1;
         Cat mCat;
-
-        @Override
-        public void onClick(View v) {
-            clickCounter++;
-
-            if (mCat.getURL().size()-1 < clickCounter) {
-                clickCounter=1;
-            }
-
-            catImageCounter.setText(clickCounter + "/" + (mCat.URL.size()-1));
-            Picasso.with(v.getContext()).load(mCat.getURL().get(clickCounter)).into(catImageView);
-        }
 
         public CatViewHolder(View itemView) {
             super(itemView);
@@ -89,15 +60,28 @@ public class CatAdoptionFragment extends Fragment {
             catWeightTextView = (TextView) itemView.findViewById(R.id.weightTextView);
             catAgeTextView = (TextView) itemView.findViewById(R.id.ageTextView);
             catDescriptionTextView = (TextView) itemView.findViewById(R.id.descriptionTextView);
-
-            itemView.setOnClickListener(this);
         }
 
         public void bind (Cat cat) {
             mCat = cat;
             clickCounter=1;
-            Picasso.with(cardView.getContext()).load(mCat.getURL().get(0)).into(catImageView);
-            catImageCounter.setText(clickCounter + "/" + (mCat.URL.size()-1));
+
+            Picasso.with(getContext()).load(mCat.getURL().get(0)).into(catImageView);
+            catImageCounter.setText(clickCounter + "/" + (mCat.getURL().size()-1));
+            catImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickCounter++;
+
+                    if (mCat.getURL().size()-1 < clickCounter) {
+                        clickCounter=1;
+                    }
+
+                    catImageCounter.setText(clickCounter + "/" + (mCat.getURL().size()-1));
+                    Picasso.with(v.getContext()).load(mCat.getURL().get(clickCounter)).into(catImageView);
+                }
+            });
+
             catNameTextView.setText(mCat.getName());
             catSexTextView.setText("Sex: " + mCat.getSex());
             catBreedTextView.setText("Breed: " + mCat.getBreed());
@@ -109,30 +93,25 @@ public class CatAdoptionFragment extends Fragment {
 
     public class CatAdapter extends RecyclerView.Adapter<CatViewHolder> {
         List<Cat> catInfo;
-        Context context;
 
         CatAdapter(List<Cat> catInfo, Context context) {
             this.catInfo = catInfo;
-            this.context = context;
         }
 
         @Override
         public CatViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
             View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_tabbed, viewGroup, false);
-            CatViewHolder cvh = new CatViewHolder(v);
-            return cvh;
+            return new CatViewHolder(v);
         }
 
         @Override
         public void onBindViewHolder(CatViewHolder catViewHolder, final int position) {
             catViewHolder.bind(catInfo.get(position));
-
         }
 
         @Override
         public int getItemCount() {
             return catInfo.size();
-
         }
     }
 }

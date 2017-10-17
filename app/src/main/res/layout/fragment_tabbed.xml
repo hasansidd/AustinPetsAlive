@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_margin="8dp"
+        android:layout_margin="16dp"
         app:cardBackgroundColor="@color/colorPrimaryDark"
         app:cardElevation="8dp"
         app:contentPadding="15dp">
@@ -31,7 +31,6 @@
                     android:layout_height="300dp"
                     android:layout_centerInParent="true"
                     android:gravity="center_horizontal"
-                    android:layout_weight="7"
                     android:cropToPadding="false"
                     android:scaleType="fitXY"
                     android:src="@mipmap/ic_launcher" />
@@ -44,18 +43,16 @@
                     android:alpha=".25"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="7"
-                    android:text="0/0" />
+                    tools:text="0/0" />
             </RelativeLayout>
 
             <TextView
                 android:id="@+id/NameTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/Image"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Name"
+                tools:text="Name"
                 android:textColor="#111111"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -64,10 +61,9 @@
                 android:id="@+id/sexTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/Image"
                 android:layout_weight="1"
-                android:gravity="left|center"
-                android:text="Sex: "
+                android:gravity="start|center"
+                tools:text="Sex: "
                 android:textAppearance="@style/InfoFont"
                 android:padding="5dp"/>
 
@@ -75,10 +71,9 @@
                 android:id="@+id/breedTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/Image"
                 android:layout_weight="1"
-                android:gravity="left|center"
-                android:text="Breed: "
+                android:gravity="start|center"
+                tools:text="Breed: "
                 android:textAppearance="@style/InfoFont"
                 android:padding="5dp"/>
 
@@ -86,10 +81,9 @@
                 android:id="@+id/weightTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/Image"
                 android:layout_weight="1"
-                android:gravity="left|center"
-                android:text="Weight: "
+                android:gravity="start|center"
+                tools:text="Weight: "
                 android:textAppearance="@style/InfoFont"
                 android:padding="5dp"/>
 
@@ -97,10 +91,9 @@
                 android:id="@+id/ageTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/Image"
                 android:layout_weight="1"
-                android:gravity="left|center"
-                android:text="Age: "
+                android:gravity="start|center"
+                tools:text="Age: "
                 android:textAppearance="@style/InfoFont"
                 android:padding="5dp"/>
 
@@ -108,9 +101,8 @@
                 android:id="@+id/descriptionTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/Image"
                 android:layout_weight="1"
-                android:gravity="left|center"
+                android:gravity="start|center"
                 android:text="Description"
                 android:textAppearance="@style/InfoFont"
                 android:padding="5dp"
