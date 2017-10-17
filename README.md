@@ -1,6 +1,6 @@
 # AustinPetsAlive 
 
-An app that list available pets for adoption from Austin Pets Alive. Uses [petScraper](https://github.com/hasansidd/petScraper) to get available pets.
+An Android app that list available pets for adoption from Austin Pets Alive. Uses [petScraper](https://github.com/hasansidd/petScraper) to get available pets.
 
 Introduction
 ------------
