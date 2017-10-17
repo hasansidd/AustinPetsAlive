@@ -1,4 +1,4 @@
-package com.hasan.austinpetsalive;
+package com.hasan.austinpetsalive.model;
 
 import java.util.ArrayList;
 

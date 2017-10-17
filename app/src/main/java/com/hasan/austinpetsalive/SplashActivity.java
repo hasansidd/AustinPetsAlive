@@ -9,11 +9,9 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hasan.austinpetsalive.model.Cat;
+import com.hasan.austinpetsalive.model.Dog;
 
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -67,8 +65,6 @@ public class SplashActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
 
@@ -134,8 +130,7 @@ public class SplashActivity extends AppCompatActivity {
             catInfo = gson.fromJson(catJSON, new TypeToken<ArrayList<Cat>>() {
             }.getType());
 
-            printCatInfo(1);
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), TabbedActivity.class);
             startActivity(intent);
             finish();
 
