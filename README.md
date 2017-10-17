@@ -13,6 +13,7 @@ Introduction
 Uses: 
 --------------
 - [Picasso](http://square.github.io/picasso/)
+
 - [Gson](https://github.com/google/gson)
 - [OkHttp](http://square.github.io/okhttp/)
 
